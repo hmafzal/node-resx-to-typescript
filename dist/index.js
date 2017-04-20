@@ -20,6 +20,7 @@ function executeResxToJson(virtualResxFolder, virtualJsonFolder, fileNameLanguag
     if (files !== undefined && files !== null) {
         for (var i = 0, length_2 = files.length; i < length_2; i++) {
             var resxFilename = files[i];
+            console.log(resxFilename);
             convertResxToJson(resxFilename, virtualJsonFolder, fileNameLanguage);
         }
     }
@@ -49,23 +50,21 @@ function getFilesFromFolder(virtualResxFolder) {
     }
 }
 function convertResxToTypeScriptModel(resxFilename, typeScriptResourcesNamespace, virtualTypeScriptFolder) {
-    fs.readFile(resxFilename, function (err, data) {
-        var parser = new xml2js.Parser();
-        parser.parseString(data, function (err, result) {
-            if (result !== undefined) {
-                convertXmlToTypeScriptModelFile(result, resxFilename, typeScriptResourcesNamespace, virtualTypeScriptFolder);
-            }
-        });
+    var data = fs.readFileSync(resxFilename);
+    var parser = new xml2js.Parser();
+    parser.parseString(data, function (err, result) {
+        if (result !== undefined) {
+            convertXmlToTypeScriptModelFile(result, resxFilename, typeScriptResourcesNamespace, virtualTypeScriptFolder);
+        }
     });
 }
 function convertResxToJson(resxFilename, virtualJsonFolder, fileNameLanguage) {
-    fs.readFile(resxFilename, function (err, data) {
-        var parser = new xml2js.Parser();
-        parser.parseString(data, function (err, result) {
-            if (result !== undefined) {
-                convertXmlToJsonFile(result, resxFilename, virtualJsonFolder, fileNameLanguage);
-            }
-        });
+    var data = fs.readFileSync(resxFilename);
+    var parser = new xml2js.Parser();
+    parser.parseString(data, function (err, result) {
+        if (result !== undefined) {
+            convertXmlToJsonFile(result, resxFilename, virtualJsonFolder, fileNameLanguage);
+        }
     });
 }
 function convertXmlToDictionary(xmlObject) {
