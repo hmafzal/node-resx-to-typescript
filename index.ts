@@ -180,7 +180,7 @@ function convertXmlToTypeScriptModelFile(xmlObject: any, resxFilename: string, t
         
         if (virtualTypeScriptFolder === undefined || virtualTypeScriptFolder === '') {
             // Write the file aside of the the resx file.
-            fs.writeFile(tsFileName, content, null);                           
+            fs.writeFileSync(tsFileName, content, null);                           
 
             addTypeScriptFile.execute(tsFileName);                          
         }
@@ -192,7 +192,7 @@ function convertXmlToTypeScriptModelFile(xmlObject: any, resxFilename: string, t
 
             mkpath.sync(projectRoot + virtualTypeScriptFolder, '0700');
             
-            fs.writeFile(outputFileName, content, null); 
+            fs.writeFileSync(outputFileName, content, null); 
             
             addTypeScriptFile.execute(relativeOutputFileName);                          
         }
@@ -213,7 +213,7 @@ function convertXmlToJsonFile(xmlObject: any, resxFilename: string, virtualJsonF
         
         if (virtualJsonFolder === undefined || virtualJsonFolder === '') {
             // Write the file aside of the the resx file.
-            fs.writeFile(jsonFileName, content, null);                           
+            fs.writeFileSync(jsonFileName, content, null);                           
         }
         else {
             // Write the file to the given output folder.
@@ -228,7 +228,7 @@ function convertXmlToJsonFile(xmlObject: any, resxFilename: string, virtualJsonF
 
             mkpath.sync(projectRoot + virtualJsonFolder, '0700');
             
-            fs.writeFile(outputFileName, content, null); 
+            fs.writeFileSync(outputFileName, content, null); 
         }
     }
 }
