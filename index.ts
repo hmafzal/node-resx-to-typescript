@@ -17,7 +17,7 @@ export function executeResxToTs(typeScriptResourcesNamespace: string, virtualRes
     let files = getFilesFromFolder(virtualResxFolder);
 
     if (files !== undefined && files !== null) {
-        for (let i = 0, length = files.length; i < length; i++) {   
+        for (let i = 0, length = files.length; i < length; i++) {
             const resxFilename = files[i];
             convertResxToTypeScriptModel(resxFilename, typeScriptResourcesNamespace, virtualTypeScriptFolder);
         }
@@ -68,27 +68,25 @@ function getFilesFromFolder(virtualResxFolder: string): any {
 }
 
 function convertResxToTypeScriptModel(resxFilename: string, typeScriptResourcesNamespace: string, virtualTypeScriptFolder: string): void {
-    fs.readFile(resxFilename, function(err: any, data: any) {
-        const parser = new xml2js.Parser();
+    const data = fs.readFileSync(resxFilename)
+    const parser = new xml2js.Parser();
 
-        parser.parseString(data, function (err: any, result: any) {
-            if (result !== undefined) {
-                convertXmlToTypeScriptModelFile(result, resxFilename, typeScriptResourcesNamespace, virtualTypeScriptFolder);                       
-            }
-        });  
-    });    
+    parser.parseString(data, function (err: any, result: any) {
+        if (result !== undefined) {
+            convertXmlToTypeScriptModelFile(result, resxFilename, typeScriptResourcesNamespace, virtualTypeScriptFolder);                       
+        }
+    });  
 }
 
 function convertResxToJson(resxFilename: string, virtualJsonFolder: string, fileNameLanguage?: string): void {
-    fs.readFile(resxFilename, function(err: any, data: any) {
-        const parser = new xml2js.Parser();
+    const data = fs.readFileSync(resxFilename);
+    const parser = new xml2js.Parser();
 
-        parser.parseString(data, function (err: any, result: any) {
-            if (result !== undefined) {
-                convertXmlToJsonFile(result, resxFilename, virtualJsonFolder, fileNameLanguage);                       
-            }
-        });  
-    });    
+    parser.parseString(data, function (err: any, result: any) {
+        if (result !== undefined) {
+            convertXmlToJsonFile(result, resxFilename, virtualJsonFolder, fileNameLanguage);                       
+        }
+    });  
 }
 
 function convertXmlToDictionary(xmlObject: any) {
@@ -180,7 +178,7 @@ function convertXmlToTypeScriptModelFile(xmlObject: any, resxFilename: string, t
         
         if (virtualTypeScriptFolder === undefined || virtualTypeScriptFolder === '') {
             // Write the file aside of the the resx file.
-            fs.writeFile(tsFileName, content, null);                           
+            fs.writeFileSync(tsFileName, content, null);                           
 
             addTypeScriptFile.execute(tsFileName);                          
         }
@@ -192,7 +190,7 @@ function convertXmlToTypeScriptModelFile(xmlObject: any, resxFilename: string, t
 
             mkpath.sync(projectRoot + virtualTypeScriptFolder, '0700');
             
-            fs.writeFile(outputFileName, content, null); 
+            fs.writeFileSync(outputFileName, content, null); 
             
             addTypeScriptFile.execute(relativeOutputFileName);                          
         }
@@ -213,7 +211,7 @@ function convertXmlToJsonFile(xmlObject: any, resxFilename: string, virtualJsonF
         
         if (virtualJsonFolder === undefined || virtualJsonFolder === '') {
             // Write the file aside of the the resx file.
-            fs.writeFile(jsonFileName, content, null);                           
+            fs.writeFileSync(jsonFileName, content, null);                           
         }
         else {
             // Write the file to the given output folder.
@@ -228,7 +226,7 @@ function convertXmlToJsonFile(xmlObject: any, resxFilename: string, virtualJsonF
 
             mkpath.sync(projectRoot + virtualJsonFolder, '0700');
             
-            fs.writeFile(outputFileName, content, null); 
+            fs.writeFileSync(outputFileName, content, null); 
         }
     }
 }
