@@ -24,7 +24,7 @@ The script has two exported functions:
 
 ```typescript
 function executeResxToTs(typeScriptResourcesNamespace: string, virtualResxFolder: string, virtualTypeScriptFolder: string, generateNestedResources: boolean = true): void;
-function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, generateNestedResources: boolean = true, fileNameLanguage?: string): void;
+function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, fileNameLanguage?: string, generateNestedResources: boolean = true): void;
 ```
 
 * `executeResxToTs` converts all resx files in the `virtualResxFolder` to TypeScript definition files (.d.ts) with the namespace defined as `typeScriptResourcesNamespace` and outputs these files to `virtualTypeScriptFolder`.

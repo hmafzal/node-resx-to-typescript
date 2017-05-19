@@ -26,7 +26,7 @@ export function executeResxToTs(typeScriptResourcesNamespace: string, virtualRes
     }
 }
 
-export function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, generateNestedResources: boolean = true, fileNameLanguage?: string): void {
+export function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, fileNameLanguage?: string, generateNestedResources: boolean = true): void {
     nestedResources = generateNestedResources;
     let files = getFilesFromFolder(virtualResxFolder);
     
