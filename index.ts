@@ -8,14 +8,16 @@ const search = require('recursive-search');
 const xml2js = require('xml2js');
 
 const virtualProjectRoot = '\\..\\..\\..\\';
+let nestedResources: boolean = true;
 
 interface Dictionary {
     [key: string]: string | Dictionary;
 }
 
-export function executeResxToTs(typeScriptResourcesNamespace: string, virtualResxFolder: string, virtualTypeScriptFolder: string): void {
+export function executeResxToTs(typeScriptResourcesNamespace: string, virtualResxFolder: string, virtualTypeScriptFolder: string, generateNestedResources: boolean = true): void {
+    nestedResources = generateNestedResources;
     let files = getFilesFromFolder(virtualResxFolder);
-
+    
     if (files !== undefined && files !== null) {
         for (let i = 0, length = files.length; i < length; i++) {   
             const resxFilename = files[i];
@@ -24,9 +26,10 @@ export function executeResxToTs(typeScriptResourcesNamespace: string, virtualRes
     }
 }
 
-export function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, fileNameLanguage?: string): void {
+export function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, fileNameLanguage?: string, generateNestedResources: boolean = true): void {
+    nestedResources = generateNestedResources;
     let files = getFilesFromFolder(virtualResxFolder);
-
+    
     if (files !== undefined && files !== null) {
         for (let i = 0, length = files.length; i < length; i++) {   
             const resxFilename = files[i];
@@ -117,7 +120,7 @@ function parseToDictionaryItem(key: string, value: string, dictionary: Dictionar
 
     let nestedKeyIndex = key.indexOf("_");
 
-    if (nestedKeyIndex >= 0) {
+    if (nestedKeyIndex >= 0 && nestedResources) {
         let firstKey = key.substring(0, nestedKeyIndex);
         let restKey = key.substring(nestedKeyIndex + 1);
 
