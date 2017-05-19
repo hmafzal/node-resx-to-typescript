@@ -23,8 +23,8 @@ Home: {
 The script has two exported functions:
 
 ```typescript
-function executeResxToTs(typeScriptResourcesNamespace: string, virtualResxFolder: string, virtualTypeScriptFolder: string): void;
-function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, fileNameLanguage?: string): void;
+function executeResxToTs(typeScriptResourcesNamespace: string, virtualResxFolder: string, virtualTypeScriptFolder: string, generateNestedResources: boolean = true): void;
+function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string, generateNestedResources: boolean = true, fileNameLanguage?: string): void;
 ```
 
 * `executeResxToTs` converts all resx files in the `virtualResxFolder` to TypeScript definition files (.d.ts) with the namespace defined as `typeScriptResourcesNamespace` and outputs these files to `virtualTypeScriptFolder`.
@@ -32,6 +32,7 @@ function executeResxToJson(virtualResxFolder: string, virtualJsonFolder: string,
 * `executeResxToJson` converts all resx files in the `virtualResxFolder` to JSON files (.json) which can be loaded in the application and outputs them to `virtualJsonFolder`.
 Optionally, you can specify a `fileNameLanguage` string to append to the file name, so if "en" was specified, the filename would be filename.en.json.
 
+By default, the option to nest the resources is enabled. To disable this functionality specify `generateNestedResources = false`.
 
 ## Usage
 
@@ -61,6 +62,7 @@ where the parameters stand for:
 
 
 ## Changelog
+2017-05-19 Add possibility to disable resource nesting
 
 2017-02-13 Remove unnecessary escaping of single quotes in string values. (v 1.0.14)
 
