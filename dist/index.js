@@ -138,7 +138,7 @@ function convertXmlToTypeScriptModelFile(xmlObject, resxFilename, typeScriptReso
         var tsFileName = resxFilename.replace('.resx', '.d.ts');
         if (virtualTypeScriptFolder === undefined || virtualTypeScriptFolder === '') {
             // Write the file aside of the the resx file.
-            fs.writeFile(tsFileName, content, null);
+            fs.writeFile(tsFileName, content, function(){});
             addTypeScriptFile.execute(tsFileName);
         }
         else {
@@ -147,7 +147,7 @@ function convertXmlToTypeScriptModelFile(xmlObject, resxFilename, typeScriptReso
             var outputFileName = (projectRoot + virtualTypeScriptFolder + '\\' + tsFileNameWithoutPath).split('/').join('\\');
             var relativeOutputFileName = virtualTypeScriptFolder + '/' + tsFileNameWithoutPath;
             mkpath.sync(projectRoot + virtualTypeScriptFolder, '0700');
-            fs.writeFile(outputFileName, content, null);
+            fs.writeFile(outputFileName, content, function(){});
             addTypeScriptFile.execute(relativeOutputFileName);
         }
     }
@@ -163,7 +163,7 @@ function convertXmlToJsonFile(xmlObject, resxFilename, virtualJsonFolder, fileNa
         var jsonFileName = resxFilename.replace('.resx', '.json');
         if (virtualJsonFolder === undefined || virtualJsonFolder === '') {
             // Write the file aside of the the resx file.
-            fs.writeFile(jsonFileName, content, null);
+            fs.writeFile(jsonFileName, content, function(){});
         }
         else {
             // Write the file to the given output folder.
@@ -175,7 +175,7 @@ function convertXmlToJsonFile(xmlObject, resxFilename, virtualJsonFolder, fileNa
             var outputFileName = (projectRoot + virtualJsonFolder + '\\' + jsonFileNameWithoutPath).split('/').join('\\');
             var relativeOutputFileName = virtualJsonFolder + '/' + jsonFileNameWithoutPath;
             mkpath.sync(projectRoot + virtualJsonFolder, '0700');
-            fs.writeFile(outputFileName, content, null);
+            fs.writeFile(outputFileName, content, function(){});
         }
     }
 }
